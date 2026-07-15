@@ -1,5 +1,23 @@
 # 🤣 打工人笑话机器人
 
+> 🤖 **本项目的 AI 背景**
+>
+> 本项目由 [Hermes Agent](https://hermes-agent.nousresearch.com)（Nous Research 开发的 AI 编程助手）
+> **全程 AI 辅助完成**：需求分析、代码编写、文档撰写均由 AI 完成。
+> 人工仅做需求提出、验证和最终发布。
+
+> ⚠️ **数据源声明**
+>
+> 本项目使用的笑话/段子 API 均来自互联网公开的免费接口，并非项目自身提供的内容。
+> 接口来源：
+> - [api.shadiao.pro](https://api.shadiao.pro) — 毒鸡汤 / 彩虹屁
+> - [api.btstu.cn](https://api.btstu.cn) — 一言冷梗
+>
+> 如果这些接口的内容涉及侵权，请联系我（通过 GitHub Issues），**我会立即删除相关引用**。
+> 你也可以替换为自建或其他来源的笑话源（见下方说明）。
+
+---
+
 定时从公开 API 抓取中文笑话/段子，通过 Hermes cron 发送到飞书群。
 
 ## 工作原理
@@ -13,15 +31,24 @@ Hermes cron 每 5 分钟触发一次脚本，脚本判断：
 
 Hermes cron 捕获 stdout 作为消息内容，自动投递到飞书群。
 
-## 数据源（纯公开 API，无需 Key）
+## 自定义笑话源
 
-| 源 | URL | 风格 |
-|----|-----|------|
-| 毒鸡汤 | `api.shadiao.pro/du` | 黑色幽默 |
-| 彩虹屁 | `api.shadiao.pro/chp` | 无厘头夸奖 |
-| 一言 | `api.btstu.cn/yan` | 冷梗/沙雕句子 |
+你完全可以替换为自己的笑话源。在 `joke_bot.py` 的 `JOKE_SOURCES` 列表中添加或修改：
 
-每次随机选一个源，请求失败自动换下一个。
+```python
+JOKE_SOURCES = [
+    {
+        "name": "我的笑话源",       # 显示名称
+        "url": "https://你的接口",   # API 地址
+        "headers": {"User-Agent": "JokeBot/1.0"},
+        "parser": lambda data: json.loads(data).get("data", {}).get("text", ""),
+    },
+]
+```
+
+每个源的 `parser` 是一个 lambda 函数，接收 HTTP 响应正文并返回笑话文本。你可以自己写接口，也可以指向其他公开免费 API。
+
+> 💡 **推荐方案**：如果你想完全自己控制笑话内容，可以自己部署一个简单的 API（比如 Flask 服务），甚至直接准备一个 `jokes.json` 本地文件，修改 `fetch_joke()` 函数从中随机读取即可。
 
 ## 配置参数
 
@@ -58,6 +85,12 @@ hermes cron create \
 ```
 
 脚本内部通过 `~/.hermes/scripts/joke_state.json` 状态文件追踪下次发送时间，跨天自动重置。
+
+## 致谢
+
+- [shadiao.pro](https://api.shadiao.pro) — 毒鸡汤 & 彩虹屁 公开 API
+- [api.btstu.cn](https://api.btstu.cn) — 一言冷梗 公开 API
+- [Hermes Agent](https://hermes-agent.nousresearch.com) — AI 开发助手
 
 ## 许可
 
