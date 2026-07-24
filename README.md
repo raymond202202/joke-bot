@@ -1,3 +1,5 @@
+This project was created with assistance from the AI agent Hermes. Human review and additional development were performed by the repository maintainer.
+
 # 🤣 打工人笑话机器人
 
 > 🤖 **本项目的 AI 背景**
@@ -48,7 +50,7 @@ JOKE_SOURCES = [
 
 每个源的 `parser` 是一个 lambda 函数，接收 HTTP 响应正文并返回笑话文本。你可以自己写接口，也可以指向其他公开免费 API。
 
-> 💡 **推荐方案**：如果你想完全自己控制笑话内容，可以自己部署一个简单的 API（比如 Flask 服务），甚至直接准备一个 `jokes.json` 本地文件，修改 `fetch_joke()` 函数从中随机读取即可。
+> 💡 **推荐方案**：如果你想完全自己控制笑话内容，可以自己部署一个简单的 API（比如 Flask 服务），甚至直接准备一个 `jokes.json` 本地文件，修改 [...]
 
 ## 配置参数
 
@@ -88,7 +90,7 @@ hermes cron create \
 
 ## 致谢
 
-- [shadiao.pro](https://api.shadiao.pro) — 毒鸡汤 & 彩虹屁 公开 API
+- [shadiao.pro](https://shadiao.pro) — 毒鸡汤 & 彩虹屁 公开 API
 - [api.btstu.cn](https://api.btstu.cn) — 一言冷梗 公开 API
 - [Hermes Agent](https://hermes-agent.nousresearch.com) — AI 开发助手
 
