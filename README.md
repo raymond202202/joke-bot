@@ -1,5 +1,3 @@
-This project was created with assistance from the AI agent Hermes. Human review and additional development were performed by the repository maintainer.
-
 # 🤣 打工人笑话机器人
 
 > 🤖 **本项目的 AI 背景**
@@ -50,7 +48,7 @@ JOKE_SOURCES = [
 
 每个源的 `parser` 是一个 lambda 函数，接收 HTTP 响应正文并返回笑话文本。你可以自己写接口，也可以指向其他公开免费 API。
 
-> 💡 **推荐方案**：如果你想完全自己控制笑话内容，可以自己部署一个简单的 API（比如 Flask 服务），甚至直接准备一个 `jokes.json` 本地文件，修改 [...]
+> 💡 **推荐方案**：如果你想完全自己控制笑话内容，可以自己部署一个简单的 API（比如 Flask 服务），甚至直接准备一个 `jokes.json` 本地文件，修改 `fetch_joke()` 函数从中随机读取即可。
 
 ## 配置参数
 
@@ -90,10 +88,37 @@ hermes cron create \
 
 ## 致谢
 
-- [shadiao.pro](https://shadiao.pro) — 毒鸡汤 & 彩虹屁 公开 API
+- [shadiao.pro](https://api.shadiao.pro) — 毒鸡汤 & 彩虹屁 公开 API
 - [api.btstu.cn](https://api.btstu.cn) — 一言冷梗 公开 API
 - [Hermes Agent](https://hermes-agent.nousresearch.com) — AI 开发助手
 
 ## 许可
 
 MIT
+
+
+---
+
+## 🤣 Workplace Joke Bot (English)
+
+A timed Chinese joke dispatcher for Feishu (飞书) that fetches jokes from public APIs during work hours.
+
+**How it works:**
+1. Runs every 5 minutes via Hermes cron
+2. Checks if it's work hours (08:30-12:00 / 14:00-19:30)
+3. Fetches a random joke from public APIs
+4. Outputs to stdout → Hermes cron delivers to Feishu
+
+**Customizable:**
+- Add your own joke sources via `JOKE_SOURCES` list
+- Adjust work hours and sending interval in config
+
+---
+
+## 🤖 AI 辅助声明
+
+本项目由 AI 智能体（Hermes Agent by Nous Research）辅助开发。从需求分析、API 适配到脚本编写与文档撰写均由 AI 在人类指导下完成。人工负责需求提出、代码审查和最终发布。
+
+## 🤖 AI Assistance Declaration
+
+This project was developed with assistance from an AI agent (Hermes Agent by Nous Research). From requirements analysis and API integration to script implementation and documentation, all work was done by AI under human guidance. Human contributors were responsible for requirements definition, code review, and final release.
